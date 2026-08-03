@@ -1,0 +1,19 @@
+name: Design Memory
+on:
+  pull_request:
+
+jobs:
+  design-memory-gate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+
+      # The gate: syncs DESIGN.md + tokens.json, scans the PR diff, posts
+      # inline annotations, and fails the check on net-new drift.
+      - uses: derinbarutcu17/DesignMemory@main
+        with:
+          strictness: block
